@@ -25,6 +25,25 @@ public class OrderServiceImpl implements OrderService{
         this.discountPolicy = discountPolicy;
     }
 
+    // 핃드주입 / 권장하지 않음 / 오류발생
+//    @Autowired private MemberRepository memberRepository;
+//    @Autowired private DiscountPolicy discountPolicy;
+
+//   public void setMemberRepository(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
+//
+//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+//        this.discountPolicy = discountPolicy;
+//    }
+
+    // 일반 메서드 주입
+//    @Autowired
+//    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+    
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);
