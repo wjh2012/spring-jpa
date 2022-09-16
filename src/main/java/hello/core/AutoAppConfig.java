@@ -33,7 +33,7 @@ public class AutoAppConfig {
 //    DiscountPolicy discountPolicy;
 //
 //    @Bean
-//    OrderService orderServiceq(){
+//    OrderService orderService(){
 //        return new OrderServiceImpl(memberRepository, discountPolicy);
 //    }
 
