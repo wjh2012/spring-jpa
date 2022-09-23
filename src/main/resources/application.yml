@@ -11,8 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-      #show_sql: true
+#        show_sql: true # sout에 출력
 
-logging:
-  level:
-    org.hibernate.SQL: debug
+logging.level:
+  org.hibernate.SQL: debug # logger에 출력
+  org.hibernate.type: trace # 쿼리 파라미터 로그 남기기
