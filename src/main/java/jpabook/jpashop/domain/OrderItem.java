@@ -26,6 +26,10 @@ public class OrderItem {
     private int orderPrice; // 주문 가격
     private int count; // 주문 수량
 
+    // OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count); 외의 형식을 막는다
+    protected OrderItem(){
+    }
+
     // 생성 메서드
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
