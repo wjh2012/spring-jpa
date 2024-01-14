@@ -1,5 +1,6 @@
 package hellojpa;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -175,6 +176,68 @@ public class JpaMain {
 //        } finally {
 //            em.close();
 //        }
+
+        // 객체를 테이블에 맞춰 설계하면 일어나는일
+        // 객체지향적이지 않다.
+        // 협력관계를 만들 수 없다.
+//        try {
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("Member1");
+//            member.setTeamId(team.getId());
+//            em.persist(member);
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//
+//            Long findTeamId = findMember.getTeamId();
+//            Team findTeam = em.find(Team.class, findTeamId);
+//            
+//
+//            tx.commit();
+//        } catch (Exception e) {
+//            tx.rollback();
+//        } finally {
+//            em.close();
+//        }        
+        
+        // 연관관계
+        try {
+            // 저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("Member1");
+            member.setTeam(team);
+            em.persist(member);
+
+            // 테스트 시
+            // 영속성 컨텍스트를 비우고 실제 쿼리를 보고 싶을 때
+//            em.flush();
+//            em.clear();
+            
+            Member findMember = em.find(Member.class, member.getId());
+            // 단방향 연관관계
+//            Team findTeam = findMember.getTeam();
+//            System.out.println("findTeam.getName() = " + findTeam.getName());
+            
+            // 양방향 연관관계
+            List<Member> members = findMember.getTeam().getMembers();
+
+            for (Member m : members) {
+                System.out.println("m.getUsername() = " + m.getUsername());
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
 
         emf.close();
     }
