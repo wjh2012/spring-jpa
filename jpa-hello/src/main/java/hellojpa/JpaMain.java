@@ -209,29 +209,36 @@ public class JpaMain {
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
-
+            System.out.println("===================");
             Member member = new Member();
             member.setUsername("Member1");
-            member.setTeam(team);
+            member.changeTeam(team);
             em.persist(member);
-
+            System.out.println("===================");
             // 테스트 시
             // 영속성 컨텍스트를 비우고 실제 쿼리를 보고 싶을 때
 //            em.flush();
 //            em.clear();
             
-            Member findMember = em.find(Member.class, member.getId());
+//            Member findMember = em.find(Member.class, member.getId());
             // 단방향 연관관계
 //            Team findTeam = findMember.getTeam();
 //            System.out.println("findTeam.getName() = " + findTeam.getName());
             
             // 양방향 연관관계
-            List<Member> members = findMember.getTeam().getMembers();
+//            List<Member> members = findMember.getTeam().getMembers();
+            System.out.println("===================");
+            // 양쪽에 값을 넣어줘야 하는이유
+            team.getMembers().add(member);
+            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
+            List<Member> members = findTeam.getMembers();
 
+            System.out.println("===================");
             for (Member m : members) {
                 System.out.println("m.getUsername() = " + m.getUsername());
             }
-
+            System.out.println("===================");
+            
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

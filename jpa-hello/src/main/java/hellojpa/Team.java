@@ -19,6 +19,12 @@ public class Team {
     private String name;
     
     // 연관관계의 주인이 아님
+    // 읽기 전용
     @OneToMany(mappedBy = "team")
     private List<Member> members;
+
+    public void addMember(Member member) {
+        member.setTeam(this);
+        members.add(member);
+    }
 }

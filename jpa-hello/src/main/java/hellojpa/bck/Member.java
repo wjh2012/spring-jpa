@@ -22,14 +22,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "Member")
-@AllArgsConstructor
+//@Table(name = "Member")
+//@AllArgsConstructor
 @NoArgsConstructor
 //@Entity(name = "Member")
-@SequenceGenerator(
-    name = "MEMBER_SEQ_GENERATOR",
-    sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
-    initialValue = 1, allocationSize = 1)
+//@SequenceGenerator(
+//    name = "MEMBER_SEQ_GENERATOR",
+//    sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
+//    initialValue = 1, allocationSize = 1)
 //@TableGenerator(
 //    name = "MEMBER_SEQ_GENERATOR",
 //    table = "MY_SEQUENCES",
