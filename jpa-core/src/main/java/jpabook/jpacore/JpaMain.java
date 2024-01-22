@@ -1,6 +1,5 @@
 package jpabook.jpacore;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
