@@ -1,5 +1,6 @@
 package hellojpa;
 
+import hellojpa.inheritance.Movie;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -240,15 +241,29 @@ public class JpaMain {
 //            System.out.println("===================");
 //            
             // 1:N
-            Member member = new Member();
-            member.setUsername("member1");
-            em.persist(member);
-
-            Team team = new Team();
-            team.setName("team1");
-            team.getMembers().add(member);
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            em.persist(member);
+//
+//            Team team = new Team();
+//            team.setName("team1");
+//            team.getMembers().add(member);
+//            
+//            em.persist(team);
             
-            em.persist(team);
+            // 상속관계
+            Movie movie = new Movie();
+            movie.setDirector("aaa");
+            movie.setActor("bbb");
+            movie.setName("바람과함께 사라지다.");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+
+            em.flush();
+            em.clear();
+
+            em.find(Movie.class, movie.getId());
             
             tx.commit();
         } catch (Exception e) {
