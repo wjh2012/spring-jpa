@@ -1,6 +1,8 @@
 package hellojpa;
 
 import hellojpa.inheritance.Movie;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -252,18 +254,28 @@ public class JpaMain {
 //            em.persist(team);
             
             // 상속관계
-            Movie movie = new Movie();
-            movie.setDirector("aaa");
-            movie.setActor("bbb");
-            movie.setName("바람과함께 사라지다.");
-            movie.setPrice(10000);
-
-            em.persist(movie);
+//            Movie movie = new Movie();
+//            movie.setDirector("aaa");
+//            movie.setActor("bbb");
+//            movie.setName("바람과함께 사라지다.");
+//            movie.setPrice(10000);
+//
+//            em.persist(movie);
+//
+//            em.flush();
+//            em.clear();
+//
+//            em.find(Movie.class, movie.getId());
+            
+            // MappedSuperClass
+            Member member = new Member();
+            member.setCreatedBy("kim");
+            member.setCreatedDate(LocalDateTime.now());
+            
+            em.persist(member);
 
             em.flush();
             em.clear();
-
-            em.find(Movie.class, movie.getId());
             
             tx.commit();
         } catch (Exception e) {
