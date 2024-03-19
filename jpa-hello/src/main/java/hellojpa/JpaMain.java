@@ -15,16 +15,19 @@ public class JpaMain {
     public static void main(String[] args) {
         System.out.println("hello world");
 
-        // 애플리케이션 로딩 시점에 딱 하나 (DB 당)
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-hello");
+        Run run = new Run();
+        run.run();
 
-        // 요청 단위마다 만들어주어야함
-        // 쓰레드 간 공유 X
-        EntityManager em = emf.createEntityManager();
-        // JPA 모든 작업은 트랜잭션 안에서 일어난다
-        EntityTransaction tx = em.getTransaction();
-
-        tx.begin();
+//        // 애플리케이션 로딩 시점에 딱 하나 (DB 당)
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-hello");
+//
+//        // 요청 단위마다 만들어주어야함
+//        // 쓰레드 간 공유 X
+//        EntityManager em = emf.createEntityManager();
+//        // JPA 모든 작업은 트랜잭션 안에서 일어난다
+//        EntityTransaction tx = em.getTransaction();
+//
+//        tx.begin();
 
         // 삽입
 //        try {
@@ -208,8 +211,8 @@ public class JpaMain {
 //        }
 
         // 연관관계
-        try {
-            // 저장
+//        try {
+        // 저장
 //            Team team = new Team();
 //            team.setName("TeamA");
 //            em.persist(team);
@@ -243,7 +246,7 @@ public class JpaMain {
 //            }
 //            System.out.println("===================");
 //
-            // 1:N
+        // 1:N
 //            Member member = new Member();
 //            member.setUsername("member1");
 //            em.persist(member);
@@ -254,7 +257,7 @@ public class JpaMain {
 //
 //            em.persist(team);
 
-            // 상속관계
+        // 상속관계
 //            Movie movie = new Movie();
 //            movie.setDirector("aaa");
 //            movie.setActor("bbb");
@@ -268,7 +271,7 @@ public class JpaMain {
 //
 //            em.find(Movie.class, movie.getId());
 
-            // MappedSuperClass
+        // MappedSuperClass
 //            Member member = new Member();
 //            member.setCreatedBy("kim");
 //            member.setCreatedDate(LocalDateTime.now());
@@ -278,32 +281,20 @@ public class JpaMain {
 //            em.flush();
 //            em.clear();
 
-            // Proxy
-            Member member = em.find(Member.class, 1L);
-
-//            printMemberAndTeam(member);
-            printMember(member);
-
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            tx.rollback();
-        } finally {
-            em.close();
-        }
-
-        emf.close();
-    }
-
-    private static void printMember(Member member) {
-        System.out.println("member = " + member.getUsername());
-    }
-
-    private static void printMemberAndTeam(Member member) {
-        String username = member.getUsername();
-        System.out.println("username = " + username);
-
-        Team team = member.getTeam();
-        System.out.println("team = " + team.getName());
+        // Proxy
+//            Member member = em.find(Member.class, 1L);
+//
+////            printMemberAndTeam(member);
+////            printMember(member);
+//
+//            tx.commit();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            tx.rollback();
+//        } finally {
+//            em.close();
+//        }
+//
+//        emf.close();
     }
 }

@@ -21,6 +21,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,17 +31,20 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Member extends BaseEntity{
-    @Id @GeneratedValue
+@AllArgsConstructor
+@NoArgsConstructor
+public class Member extends BaseEntity {
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
-    
-    @Column(name="USERNAME")
+
+    @Column(name = "USERNAME")
     private String username;
 
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
-    
+
 //    @ManyToOne
 //    @JoinColumn(name = "TEAM_ID")
 //    private Team team;
@@ -52,7 +56,7 @@ public class Member extends BaseEntity{
 
     // 1:1 주 테이블에 외래키
     @OneToOne
-    @JoinColumn(name="LOCKER_ID", unique = true)
+    @JoinColumn(name = "LOCKER_ID", unique = true)
     private Locker locker;
 
     // N:N
@@ -62,7 +66,7 @@ public class Member extends BaseEntity{
 
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
-    
+
     // 연관관계 편의 메서드
 //    public void changeTeam(Team team) {
 //        this.team = team;
