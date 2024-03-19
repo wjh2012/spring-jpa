@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name="ORDERS")// DB에 ORDER가 예약어로 걸려있는 경우가 있다
 @Getter
 @Setter
-public class Order {
+public class Order extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ORDER_ID")

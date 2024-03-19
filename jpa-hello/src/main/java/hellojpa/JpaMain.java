@@ -1,6 +1,7 @@
 package hellojpa;
 
 import hellojpa.inheritance.Movie;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,10 +30,10 @@ public class JpaMain {
 //        try {
 //            // 비영속
 //            MemberSample memberSample = new MemberSample();
-//            // 영속      
+//            // 영속
 //            em.persist(memberSample);
 //            tx.commit();
-//            
+//
 //        } catch (Exception e) {
 //            tx.rollback();
 //        } finally {
@@ -44,22 +45,22 @@ public class JpaMain {
 //            Member findMember = em.find(Member.class, 1L);
 //            System.out.println("findMember.getId() = " + findMember.getId());
 //            System.out.println("findMember.getName() = " + findMember.getName());
-//            
+//
 //            tx.commit();
-//            
+//
 //        } catch (Exception e) {
 //            tx.rollback();
 //        } finally {
 //            em.close();
-//        }        
+//        }
 
         // 수정
 //        try {
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("helloJPA");
-//            
+//
 //            tx.commit();
-//            
+//
 //        } catch (Exception e) {
 //            tx.rollback();
 //        } finally {
@@ -70,9 +71,9 @@ public class JpaMain {
 //        try {
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("helloJPA");
-//            
+//
 //            tx.commit();
-//            
+//
 //        } catch (Exception e) {
 //            tx.rollback();
 //        } finally {
@@ -85,7 +86,7 @@ public class JpaMain {
 //            .setFirstResult(1) // 1번부터 offset
 //            .setMaxResults(10) // 10개 limit
 //            .getResultList();
-//        
+//
 //        for (Member member : result) {
 //            System.out.println("member.getName() = " + member.getName());
 //        }
@@ -107,17 +108,17 @@ public class JpaMain {
 //        try {
 //            Member member1 = new Member(101L, "member1");
 //            Member member2 = new Member(102L, "member2");
-//            
+//
 //            em.persist(member1);
 //            em.persist(member2);
-//            
+//
 //            tx.commit();
 //
 //        } catch (Exception e) {
 //            tx.rollback();
 //        } finally {
 //            em.close();
-//        }        
+//        }
 
         // 변경감지
 //        try {
@@ -147,13 +148,13 @@ public class JpaMain {
 //            tx.rollback();
 //        } finally {
 //            em.close();
-//        }        
+//        }
 
 //        // 준영속
 //        try {
 //            Member member = em.find(Member.class, 1L);
 //            member.setUsername("qwer");
-//            
+//
 //            em.detach(member);
 //            // 준영속 상태기 때문에 업데이트가 일어나지 않음
 //            tx.commit();
@@ -162,7 +163,7 @@ public class JpaMain {
 //            tx.rollback();
 //        } finally {
 //            em.close();
-//        }        
+//        }
 
         // 준영속
 //        try {
@@ -197,15 +198,15 @@ public class JpaMain {
 //
 //            Long findTeamId = findMember.getTeamId();
 //            Team findTeam = em.find(Team.class, findTeamId);
-//            
+//
 //
 //            tx.commit();
 //        } catch (Exception e) {
 //            tx.rollback();
 //        } finally {
 //            em.close();
-//        }        
-        
+//        }
+
         // 연관관계
         try {
             // 저장
@@ -222,12 +223,12 @@ public class JpaMain {
 //            // 영속성 컨텍스트를 비우고 실제 쿼리를 보고 싶을 때
 ////            em.flush();
 ////            em.clear();
-//            
+//
 ////            Member findMember = em.find(Member.class, member.getId());
 //            // 단방향 연관관계
 ////            Team findTeam = findMember.getTeam();
 ////            System.out.println("findTeam.getName() = " + findTeam.getName());
-//            
+//
 //            // 양방향 연관관계
 ////            List<Member> members = findMember.getTeam().getMembers();
 //            System.out.println("===================");
@@ -241,7 +242,7 @@ public class JpaMain {
 //                System.out.println("m.getUsername() = " + m.getUsername());
 //            }
 //            System.out.println("===================");
-//            
+//
             // 1:N
 //            Member member = new Member();
 //            member.setUsername("member1");
@@ -250,9 +251,9 @@ public class JpaMain {
 //            Team team = new Team();
 //            team.setName("team1");
 //            team.getMembers().add(member);
-//            
+//
 //            em.persist(team);
-            
+
             // 상속관계
 //            Movie movie = new Movie();
 //            movie.setDirector("aaa");
@@ -266,17 +267,23 @@ public class JpaMain {
 //            em.clear();
 //
 //            em.find(Movie.class, movie.getId());
-            
-            // MappedSuperClass
-            Member member = new Member();
-            member.setCreatedBy("kim");
-            member.setCreatedDate(LocalDateTime.now());
-            
-            em.persist(member);
 
-            em.flush();
-            em.clear();
-            
+            // MappedSuperClass
+//            Member member = new Member();
+//            member.setCreatedBy("kim");
+//            member.setCreatedDate(LocalDateTime.now());
+//
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
+
+            // Proxy
+            Member member = em.find(Member.class, 1L);
+
+//            printMemberAndTeam(member);
+            printMember(member);
+
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -288,4 +295,15 @@ public class JpaMain {
         emf.close();
     }
 
+    private static void printMember(Member member) {
+        System.out.println("member = " + member.getUsername());
+    }
+
+    private static void printMemberAndTeam(Member member) {
+        String username = member.getUsername();
+        System.out.println("username = " + username);
+
+        Team team = member.getTeam();
+        System.out.println("team = " + team.getName());
+    }
 }
